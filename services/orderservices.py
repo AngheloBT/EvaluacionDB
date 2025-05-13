@@ -26,7 +26,7 @@ class OrderService:
 
             if cantidad > producto.get_stock():
                 raise ValueError(f"Stock insuficiente para producto {sku} (Disponible: {producto.get_stock()}, Solicitado: {cantidad})")
-            total += cantidad * producto.get_price()
+            total += cantidad * producto.get_precio()
             producto.set_stock(producto.get_stock() - cantidad)
             productos_actualizados.append(producto)
 
@@ -44,7 +44,7 @@ class OrderService:
         return self.order_repo.get_orders_by_rut(rut)
 
     def _obtener_cliente(self, rut: str) -> Client:
-        client = self.client_repo.get_client_by_id(rut)
+        client = self.client_repo.get_client_by_rut(rut)
         if not client:
             raise ValueError(f"Cliente con RUT {rut} no encontrado.")
         return client

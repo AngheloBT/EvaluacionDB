@@ -34,6 +34,3 @@ class OrderRepository:
         """Obtiene todos los pedidos desde la colección de MongoDB."""
         return list(self.collection.find())
 
-    def get_orders_by_rut(self, rut):
-        """Obtiene los pedidos de un cliente por su RUT."""
-        return list(self.collection.find({"cliente_rut": rut}))

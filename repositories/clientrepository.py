@@ -8,9 +8,9 @@ class ClientRepository:
         self.connection = connection
 
     def add_client(self, client: Client) -> Client:
-        query = "INSERT INTO clientes (id, name, email, phone, address) VALUES (%s, %s, %s, %s, %s)"
+        query = "INSERT INTO clientes (rut, nombre, email, telefono, direccion) VALUES (%s, %s, %s, %s, %s)"
         self.connection.execute(query, (
-            client.get_id(),
+            client.get_rut(),
             client.get_name(),
             client.get_email(),
             client.get_phone(),
@@ -19,13 +19,13 @@ class ClientRepository:
         self.connection.commit()
         return client
 
-    def get_client_by_id(self, client_id: int) -> Optional[Client]:
-        query = "SELECT * FROM clientes WHERE id = %s"
-        self.connection.execute(query, (client_id,))
+    def get_client_by_rut(self, rut: str) -> Optional[Client]:
+        query = "SELECT * FROM clientes WHERE rut = %s"
+        self.connection.execute(query, (rut,))
         result = self.connection.fetchone()
         if result:
             client = Client()
-            client.set_id(result[0])
+            client.set_rut(result[0])
             client.set_name(result[1])
             client.set_email(result[2])
             client.set_phone(result[3])
@@ -39,7 +39,7 @@ class ClientRepository:
         result = self.connection.fetchone()
         if result:
             client = Client()
-            client.set_id(result[0])
+            client.set_rut(result[0])
             client.set_name(result[1])
             client.set_email(result[2])
             client.set_phone(result[3])
@@ -48,19 +48,19 @@ class ClientRepository:
         return None
 
     def update_client(self, client: Client) -> None:
-        query = "UPDATE clientes SET name = %s, email = %s, phone = %s, address = %s WHERE id = %s"
+        query = "UPDATE clientes SET nombre = %s, email = %s, telefono = %s, direccion = %s WHERE rut = %s"
         self.connection.execute(query, (
             client.get_name(),
             client.get_email(),
             client.get_phone(),
             client.get_address(),
-            client.get_id()
+            client.get_rut()
         ))
         self.connection.commit()
 
-    def delete_client(self, client_id: int) -> None:
-        query = "DELETE FROM clientes WHERE id = %s"
-        self.connection.execute(query, (client_id,))
+    def delete_client(self, rut: str) -> None:
+        query = "DELETE FROM clientes WHERE rut = %s"
+        self.connection.execute(query, (rut,))
         self.connection.commit()
 
     def show_all_clients(self) -> List[Client]:
@@ -70,7 +70,7 @@ class ClientRepository:
         clientes = []
         for row in results:
             client = Client()
-            client.set_id(row[0])
+            client.set_rut(row[0])
             client.set_name(row[1])
             client.set_email(row[2])
             client.set_phone(row[3])

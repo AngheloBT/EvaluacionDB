@@ -1,6 +1,5 @@
 class Product:
     def __init__(self):
-        self.__id = ""
         self.__sku: str = ""         
         self.__marca: str = ""
         self.__modelo: str = ""
@@ -40,7 +39,6 @@ class Product:
 
     def to_dict(self) -> dict:
         return {
-            "_id": self.__id,
             "sku": self.__sku,
             "marca": self.__marca,
             "modelo": self.__modelo,
@@ -49,9 +47,8 @@ class Product:
         }
 
     def from_dict(self, data: dict):
-        self.__id = data["_id"]
-        self.__sku = data["sku"]
-        self.__marca = data["marca", ""]
-        self.__modelo = data["modelo", ""]
-        self.__precio = data["precio", 0.0]
-        self.__stock = data["stock", 0]
+        self.__sku = data.get("sku", "")
+        self.__marca = data.get("marca", "")
+        self.__modelo = data.get("modelo", "")
+        self.__precio = data.get("precio", 0.0)
+        self.__stock = data.get("stock", 0)

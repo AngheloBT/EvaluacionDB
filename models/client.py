@@ -1,16 +1,16 @@
 class Client:
     def __init__(self):
-        self.__id : int = 0
+        self.__rut : str = ""
         self.__name : str = ""
         self.__email : str = ""
         self.__phone : int = 0
         self.__address : str = ""
 
-    def get_id(self) -> int:
-        return self.__id
+    def get_rut(self) -> str:
+        return self.__rut
     
-    def set_id(self, id : int):
-        self.__id = id
+    def set_rut(self, rut : str):
+        self.__rut = rut
 
     def get_name(self) -> str:
         return self.__name
